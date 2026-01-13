@@ -65,6 +65,7 @@ void newContact(std::string a, std::string b, std::string c, std::string d, std:
 void newContact(const json& conArr );
 void newContact(Contact& numero);
 void showAllContact();
+int getMaxId();
 
 
 //void listContact();

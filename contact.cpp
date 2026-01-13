@@ -46,45 +46,7 @@ void Contact::getContact(){
     std::cout<<this->address<<"#"<<this->name<<"#"<<this->numero[0].value<<std::endl;
 }
 
-/*
-json loadFile(){
 
-    std::ifstream contact_file(annuaire.c_str());
-    //new line
-    json allContact;
-    //fin
-    if (!contact_file.is_open()) {
-        std::cerr << "It's not possible to read the file" << std::endl;
-        allContact = json::array();
-        
-    }else{
-        try {
-        //allContact = json::parse(contact_file);
-            contact_file >> allContact;
-            if(!allContact.is_array()){
-                std::cerr<<"the file isn't a json file. \n Process of empty initialisation"<<std::endl;
-                allContact = json::array();
-            }
-
-            } catch (const json::parse_error& e) {
-                std::cerr << "Erreur de parsing JSON: " << e.what() << std::endl;
-                allContact= json::array();
-        
-    }
-    }
-
-    
-    //json allContact = json::array();
-  
-
-    //save to garanty the structur of []
-    //contact_file.close();
-    std::ofstream out(annuaire.c_str());
-    out << allContact.dump(4);
-    return allContact;
-
-}
-*/
 
 json loadFile(){
 
@@ -137,6 +99,20 @@ json loadFile(){
 
 }
 
+
+int getMaxId(){
+    json allContact = loadFile();
+    int maxId = 0; //just to initialize index to 1
+
+    for(const auto& c : allContact){
+        if(c.contains("id")){
+            maxId = std::max(maxId, c["id"].get<int>());
+        }
+    }
+    return maxId;
+}
+
+
 void saveContact(Contact contact){
 
     /*
@@ -164,7 +140,10 @@ void saveContact(Contact contact){
     json nums_elmnt;
     json savedContact;
 
-    int id_nb_object= 1 + allContact.size();// number of objects
+    int id_max= getMaxId();
+
+    //int id_nb_object= allContact.size();// number of objects
+    int id_nb_object = id_max + 1;
     std::vector<std::string> v_home; /*vector for group information*/
     std::vector<std::string> v_personnal;
     std::vector<std::string> v_work;
@@ -411,33 +390,7 @@ void removeContact(int id){
 
 
 };
-/* premiere fonction
-bool searchContact(const json& allContact , const std::string& tel){
-    //json allContact = json::array();
-    //allContact=loadFile();
 
-    if(!allContact.contains("numero") || !allContact["numero"].is_array()){
-        return false;
-    }
-
-    for(const auto& bloc : allContact["numero"]){
-        if(!bloc.is_object()){
-            continue;
-        }
-        for(const auto& [type,liste] : bloc.items()){
-            if(!liste.is_array()){
-                continue;
-            }
-            for(const auto& num : liste){
-                if (num.is_string() && num.get<std::string>().find(tel) != std::string::npos){
-                    return true;
-                }
-            }
-        }
-    }
-
-
-*/
 bool searchContact(const json& allContact , const std::string& tele){
     //json allContact = json::array();
     //allContact=loadFile();
@@ -461,24 +414,7 @@ bool searchContact(const json& allContact , const std::string& tele){
    return false;
 };
 
-/* ancienne version
-    bool matchContact(const json& allContact , const std::string& chain){
-    //json allContact = json::array();
-    //allContact=loadFile();
-    if(chain.empty())return false;
 
-    //nom
-    if(allContact.contains("name") && allContact["name"].is_string() && allContact["name"].get<std::string>().find(chain)!= std::string::npos){
-        return true;
-    }
-    //email
-    if(allContact.contains("email") && allContact["email"].is_string() && allContact["email"].get<std::string>().find(chain) != std::string::npos){
-        return true;
-    }
-    
-    return false;
-}
-*/
 bool matchContact(const json& allContact , const std::string& chain){
     //json allContact = json::array();
     //allContact=loadFile();
@@ -532,64 +468,10 @@ void showSearch(const std::string chain){
     std::cout<<" We founded ("<<results.size()<<") occurence(s)"<<std::endl;
 
     for(size_t idx : results){
-        std::cout <<allContact[idx]["id"]<<" - "<<allContact[idx]["name"] << "  " << allContact[idx]["numero"]<< "  " << allContact[idx]["email"] <<std::endl;
+        std::cout <<"Id: "<<allContact[idx]["id"]<<" - "<<allContact[idx]["name"] << "  " << allContact[idx]["numero"]<< "  " << allContact[idx]["email"] <<std::endl;
     }
 }
-/*
-void showAllContact2(){
-    json allContact = json::array();
-    allContact = loadFile();
 
-    std::cout<<"ça donne ici \n";
-
-    if(!allContact.is_array() || allContact.empty()){
-        std::cout << "No contact to show. \n"<<std::endl;
-        return;
-    }
-    for(size_t i = 0; i < allContact.size(); ++i){
-        const auto& c = allContact[i];
-
-        std::cout << "==============================\n";
-        std::cout << "ID : "<< i <<"\n";
-
-        //name
-        if(c.contains("name")){
-            std::cout << "Nom  :" << c["name"] << "\n";
-        }
-        //email
-        if(c.contains("email")){
-            std::cout << "Email  : " << c["email"] << "\n";
-        }
-        //adress
-        if(c.contains("adress")){
-            std::cout << "Adresse : " << c["address"] << "\n";
-        }
-        //numero
-        std::cout << "Numeros : \n"<<std::endl;
-        if(c.contains("numero") && c["numero"].is_array() && c["numero"].empty()){
-            for(const auto& bloc : c["numero"]){
-                if(!bloc.is_object()){
-                    continue;
-                }
-                for(const auto& [type, liste] : bloc.items()){
-                    std::cout << " - " << type << " : ";
-                    if(!liste.is_array() || liste.empty()){
-                        std::cout << "(empty)";
-                    }else{
-                        for(const auto& num : liste){
-                            std::cout << num.get<std::string>()<< " ";
-                        }
-                    }
-                    std::cout << "\n";
-                }
-            }
-        }else {
-            std::cout << "No contact \n";
-        }
-    }
-    std::cout <<"-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- \n"<<std::endl;
-}
-*/
 void showAllContact() {
     json allContact = loadFile();
 
@@ -602,7 +484,10 @@ void showAllContact() {
         const auto& c = allContact[i];
 
         std::cout << "==============================\n";
-        std::cout << "ID : " << i << "\n";
+        //std::cout << "ID : " << i << "\n";
+
+        if (c.contains("id"))
+            std::cout << "ID     : " << c["id"] << "\n";
 
         if (c.contains("name"))
             std::cout << "Nom     : " << c["name"] << "\n";
@@ -882,54 +767,6 @@ void newContact(Contact &tel){
 
 }
 
-void newContact(const json& conArr){
-
-
-    std::string temp=""; //temporary variable
-    char choice;
-    Contact contact;
-    Numero numero;
-    numero.value="888374";
-    numero.type=personnal;
-
-
-
-    //ici à bloquer
-    numero:
-    std::cout<<"enter the number"<<std::endl;
-    std::cin >> temp;
-    if(!isValidNumber(temp)){
-        std::cout<<"the number isn't valid. please try again"<<std::endl;
-        goto numero;
-    }else{
-        numero.value=temp;
-    }
-    numero_type:
-    std::cout<<("which type of number it's \n 1- home \n 2- personnal \n 3- work ")<<std::endl;
-    std::cin >> choice;
-    if(choice == '1'){
-        numero.type=home;
-    }else if(choice == '2'){
-        numero.type=personnal;
-    }else if(choice == '3'){
-        numero.type=work;
-    }else{
-        goto numero_type;
-    }   
-    contact.setNumero(numero);
-    
-    std::cout<<"do you want to add another number y/n"<<std::endl;
-    std::cin>>choice;
-    if(choice=='y' || choice=='Y'){
-        goto numero;
-    }else if(choice=='n' || choice=='N'){
-        std::cout<<"process new number has been stopped!!"<<std::endl;
-
-    }else{
-        std::cout<<"process new number has been stopped!!"<<std::endl;
-    }
-
-}
 
 
 
