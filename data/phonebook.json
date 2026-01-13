@@ -1,34 +1,20 @@
 [
     {
-        "address": "hdyvxdd",
-        "born_date": "22-12-22",
-        "email": "hdd@53.com",
-        "name": "test",
+        "address": "azser",
+        "born_date": "12-02-2025",
+        "email": "fed@ye.dc",
+        "id": 1,
+        "name": "jes",
         "numero": [
             {
                 "home": [
-                    "+79522300822"
+                    "9522300822"
                 ],
                 "personnal": [],
                 "work": []
             }
         ],
-        "surname": "test"
-    },
-    {
-        "address": "idiot",
-        "born_date": "22-12-827",
-        "email": "teef@tete.com",
-        "name": "fred",
-        "numero": [
-            {
-                "home": [],
-                "personnal": [],
-                "work": [
-                    "+78366455345"
-                ]
-            }
-        ],
-        "surname": "fred"
+        "patronym": "",
+        "surname": "jes"
     }
 ]
