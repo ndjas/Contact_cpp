@@ -1,5 +1,8 @@
 #include <string>
 #include <vector>
+#include "lib/nlohmann/json.hpp"
+
+using json = nlohmann::json;
 
 enum type_contact{
     home,
@@ -49,4 +52,20 @@ class Contact{
 
 void newContact();
 void saveContact(Contact contact);
+json loadFile();
+int findIndexWithId(const json& j, int id);
+void modifyContact(int id);
+void removeContact(int id);
+void saveToFile(const json& j);
+bool searchContact(const json& contact , const std::string& chain);
+bool matchContact(const json& contact , const std::string& chain);
+std::vector<size_t> multicriteriaSearch(const json& contact , const std::string& chain);
+void showSearch(const std::string chain);
+void newContact(std::string a, std::string b, std::string c, std::string d, std::string e, std::string f);
+void newContact(const json& conArr );
+void newContact(Contact& numero);
+void showAllContact();
+int getMaxId();
+
+
 //void listContact();

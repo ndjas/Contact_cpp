@@ -1,0 +1,43 @@
+[
+    {
+        "address": "fred55",
+        "born_date": "12-01-2004",
+        "email": "fred@fred.com",
+        "id": 1,
+        "name": "fred",
+        "numero": [
+            {
+                "home": [
+                ],
+                "personnal": [
+                ],
+                "work": [
+                    "+79522300822"
+                ]
+            }
+        ],
+        "patronym": "",
+        "surname": "lionnel"
+    },
+    {
+        "address": "polytecnique",
+        "born_date": "12-03-2025",
+        "email": "exemple@spbstu.fr",
+        "id": 2,
+        "name": "alo",
+        "numero": [
+            {
+                "home": [
+                    "+79364759873"
+                ],
+                "personnal": [
+                ],
+                "work": [
+                    "89532539465"
+                ]
+            }
+        ],
+        "patronym": "oui",
+        "surname": "essaie"
+    }
+]
