@@ -4,15 +4,33 @@
 #include <QVector>
 #include <QString>
 #include "Contact.h"
+#include "../storage/IStorage.h"
+#include "../storage/JSONStorage.h"
+#include "../storage/PostgresStorage.h"
+
+enum class StorageMode {
+    JSON,
+    PostgreSQL
+};
 
 class ContactManager
 {
 public:
-    ContactManager(const QString& filepath = "./data/phonebook.json");
+    ContactManager();
+    ~ContactManager();
+    
+    // Gestion du mode de stockage
+    void setStorageMode(StorageMode mode);
+    StorageMode getStorageMode() const { return currentMode; }
+    
+    // Configuration PostgreSQL
+    void configurePostgres(const QString& host, int port, 
+                          const QString& dbName,
+                          const QString& user, 
+                          const QString& password);
     
     // CRUD operations
     bool loadContacts();
-    bool saveContacts();
     bool addContact(const Contact& contact);
     bool updateContact(const Contact& contact);
     bool removeContact(int id);
@@ -20,16 +38,21 @@ public:
     // Recherche
     QVector<Contact> searchContacts(const QString& query) const;
     Contact* getContactById(int id);
-    QVector<Contact>& getAllContacts() { return contacts; }
-    const QVector<Contact>& getAllContacts() const { return contacts; }
+    QVector<Contact> getAllContacts() const { return contacts; }
     
-    int getNextId() const;
+    // Informations de connexion
+    QString getStorageInfo() const;
+    QString getLastError() const;
+    bool isConnected() const;
     
 private:
-    QString filepath;
+    IStorage* storage;
+    JSONStorage* jsonStorage;
+    PostgresStorage* postgresStorage;
+    StorageMode currentMode;
     QVector<Contact> contacts;
     
-    int findIndexById(int id) const;
+    void switchStorage();
     bool matchContact(const Contact& contact, const QString& query) const;
 };
 

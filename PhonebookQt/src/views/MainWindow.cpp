@@ -1,6 +1,7 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 #include "ContactDialog.h"
+#include "PostgresConfigDialog.h"
 #include <QMessageBox>
 #include <QInputDialog>
 
@@ -13,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     setupUI();
     setupConnections();
     refreshContactList();
+    updateStorageStatusLabel();
 }
 
 MainWindow::~MainWindow()
@@ -53,6 +55,14 @@ void MainWindow::setupConnections()
     
     connect(ui->contactListWidget, &QListWidget::itemSelectionChanged, 
             this, &MainWindow::onContactSelectionChanged);
+    
+    // Gestion des modes de stockage
+    connect(ui->radioJSON, &QRadioButton::toggled, 
+            this, &MainWindow::onStorageModeChanged);
+    connect(ui->radioPostgres, &QRadioButton::toggled, 
+            this, &MainWindow::onStorageModeChanged);
+    connect(ui->btnConfigPostgres, &QPushButton::clicked, 
+            this, &MainWindow::onConfigurePostgresClicked);
 }
 
 void MainWindow::loadContacts(const QString& searchQuery)
@@ -105,7 +115,8 @@ void MainWindow::onAddContactClicked()
             refreshContactList();
         } else {
             QMessageBox::critical(this, "Erreur", 
-                "Impossible d'ajouter le contact.");
+                QString("Impossible d'ajouter le contact.\n%1")
+                .arg(contactManager->getLastError()));
         }
     }
 }
@@ -159,7 +170,8 @@ void MainWindow::onEditContactClicked()
             refreshContactList();
         } else {
             QMessageBox::critical(this, "Erreur", 
-                "Impossible de modifier le contact.");
+                QString("Impossible de modifier le contact.\n%1")
+                .arg(contactManager->getLastError()));
         }
     }
 }
@@ -188,7 +200,8 @@ void MainWindow::onDeleteContactClicked()
             clearContactDetails();
         } else {
             QMessageBox::critical(this, "Erreur", 
-                "Impossible de supprimer le contact.");
+                QString("Impossible de supprimer le contact.\n%1")
+                .arg(contactManager->getLastError()));
         }
     }
 }
@@ -261,4 +274,53 @@ int MainWindow::getSelectedContactId()
     if (!item) return -1;
     
     return item->data(Qt::UserRole).toInt();
+}
+
+void MainWindow::onStorageModeChanged()
+{
+    if (ui->radioJSON->isChecked()) {
+        contactManager->setStorageMode(StorageMode::JSON);
+    } else if (ui->radioPostgres->isChecked()) {
+        contactManager->setStorageMode(StorageMode::PostgreSQL);
+    }
+    
+    updateStorageStatusLabel();
+    refreshContactList();
+}
+
+void MainWindow::onConfigurePostgresClicked()
+{
+    PostgresConfigDialog dialog(this);
+    
+    if (dialog.exec() == QDialog::Accepted) {
+        contactManager->configurePostgres(
+            dialog.getHost(),
+            dialog.getPort(),
+            dialog.getDatabase(),
+            dialog.getUsername(),
+            dialog.getPassword()
+        );
+        
+        updateStorageStatusLabel();
+        
+        if (ui->radioPostgres->isChecked()) {
+            refreshContactList();
+        }
+        
+        QMessageBox::information(this, "Succès", 
+            "Configuration PostgreSQL enregistrée!");
+    }
+}
+
+void MainWindow::updateStorageStatusLabel()
+{
+    if (!contactManager->isConnected()) {
+        ui->lblStorageStatus->setText(
+            "<span style=\"color: #e74c3c;\">❌ Déconnecté</span>");
+        return;
+    }
+    
+    QString info = contactManager->getStorageInfo();
+    ui->lblStorageStatus->setText(
+        QString("<span style=\"color: #27ae60;\">✅ %1</span>").arg(info));
 }

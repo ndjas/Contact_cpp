@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'ContactDialog.ui'
 **
-** Created by: Qt User Interface Compiler version 6.8.3
+** Created by: Qt User Interface Compiler version 5.15.17
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -64,78 +64,78 @@ public:
     void setupUi(QDialog *ContactDialog)
     {
         if (ContactDialog->objectName().isEmpty())
-            ContactDialog->setObjectName("ContactDialog");
+            ContactDialog->setObjectName(QString::fromUtf8("ContactDialog"));
         ContactDialog->resize(500, 650);
         verticalLayout = new QVBoxLayout(ContactDialog);
-        verticalLayout->setObjectName("verticalLayout");
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         lblHeader = new QLabel(ContactDialog);
-        lblHeader->setObjectName("lblHeader");
+        lblHeader->setObjectName(QString::fromUtf8("lblHeader"));
 
         verticalLayout->addWidget(lblHeader);
 
         groupBoxPersonalInfo = new QGroupBox(ContactDialog);
-        groupBoxPersonalInfo->setObjectName("groupBoxPersonalInfo");
+        groupBoxPersonalInfo->setObjectName(QString::fromUtf8("groupBoxPersonalInfo"));
         formLayout = new QFormLayout(groupBoxPersonalInfo);
-        formLayout->setObjectName("formLayout");
+        formLayout->setObjectName(QString::fromUtf8("formLayout"));
         formLayout->setHorizontalSpacing(10);
         formLayout->setVerticalSpacing(10);
         lblName = new QLabel(groupBoxPersonalInfo);
-        lblName->setObjectName("lblName");
+        lblName->setObjectName(QString::fromUtf8("lblName"));
 
         formLayout->setWidget(0, QFormLayout::LabelRole, lblName);
 
         lineEditName = new QLineEdit(groupBoxPersonalInfo);
-        lineEditName->setObjectName("lineEditName");
+        lineEditName->setObjectName(QString::fromUtf8("lineEditName"));
 
         formLayout->setWidget(0, QFormLayout::FieldRole, lineEditName);
 
         lblSurname = new QLabel(groupBoxPersonalInfo);
-        lblSurname->setObjectName("lblSurname");
+        lblSurname->setObjectName(QString::fromUtf8("lblSurname"));
 
         formLayout->setWidget(1, QFormLayout::LabelRole, lblSurname);
 
         lineEditSurname = new QLineEdit(groupBoxPersonalInfo);
-        lineEditSurname->setObjectName("lineEditSurname");
+        lineEditSurname->setObjectName(QString::fromUtf8("lineEditSurname"));
 
         formLayout->setWidget(1, QFormLayout::FieldRole, lineEditSurname);
 
         lblPatronym = new QLabel(groupBoxPersonalInfo);
-        lblPatronym->setObjectName("lblPatronym");
+        lblPatronym->setObjectName(QString::fromUtf8("lblPatronym"));
 
         formLayout->setWidget(2, QFormLayout::LabelRole, lblPatronym);
 
         lineEditPatronym = new QLineEdit(groupBoxPersonalInfo);
-        lineEditPatronym->setObjectName("lineEditPatronym");
+        lineEditPatronym->setObjectName(QString::fromUtf8("lineEditPatronym"));
 
         formLayout->setWidget(2, QFormLayout::FieldRole, lineEditPatronym);
 
         lblBornDate = new QLabel(groupBoxPersonalInfo);
-        lblBornDate->setObjectName("lblBornDate");
+        lblBornDate->setObjectName(QString::fromUtf8("lblBornDate"));
 
         formLayout->setWidget(3, QFormLayout::LabelRole, lblBornDate);
 
         dateEdit = new QDateEdit(groupBoxPersonalInfo);
-        dateEdit->setObjectName("dateEdit");
+        dateEdit->setObjectName(QString::fromUtf8("dateEdit"));
 
         formLayout->setWidget(3, QFormLayout::FieldRole, dateEdit);
 
         lblAddress = new QLabel(groupBoxPersonalInfo);
-        lblAddress->setObjectName("lblAddress");
+        lblAddress->setObjectName(QString::fromUtf8("lblAddress"));
 
         formLayout->setWidget(4, QFormLayout::LabelRole, lblAddress);
 
         lineEditAddress = new QLineEdit(groupBoxPersonalInfo);
-        lineEditAddress->setObjectName("lineEditAddress");
+        lineEditAddress->setObjectName(QString::fromUtf8("lineEditAddress"));
 
         formLayout->setWidget(4, QFormLayout::FieldRole, lineEditAddress);
 
         lblEmail = new QLabel(groupBoxPersonalInfo);
-        lblEmail->setObjectName("lblEmail");
+        lblEmail->setObjectName(QString::fromUtf8("lblEmail"));
 
         formLayout->setWidget(5, QFormLayout::LabelRole, lblEmail);
 
         lineEditEmail = new QLineEdit(groupBoxPersonalInfo);
-        lineEditEmail->setObjectName("lineEditEmail");
+        lineEditEmail->setObjectName(QString::fromUtf8("lineEditEmail"));
 
         formLayout->setWidget(5, QFormLayout::FieldRole, lineEditEmail);
 
@@ -143,13 +143,13 @@ public:
         verticalLayout->addWidget(groupBoxPersonalInfo);
 
         groupBoxNumbers = new QGroupBox(ContactDialog);
-        groupBoxNumbers->setObjectName("groupBoxNumbers");
+        groupBoxNumbers->setObjectName(QString::fromUtf8("groupBoxNumbers"));
         verticalLayout_2 = new QVBoxLayout(groupBoxNumbers);
-        verticalLayout_2->setObjectName("verticalLayout_2");
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setObjectName("horizontalLayout");
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         lineEditNumber = new QLineEdit(groupBoxNumbers);
-        lineEditNumber->setObjectName("lineEditNumber");
+        lineEditNumber->setObjectName(QString::fromUtf8("lineEditNumber"));
 
         horizontalLayout->addWidget(lineEditNumber);
 
@@ -157,13 +157,13 @@ public:
         comboBoxNumberType->addItem(QString());
         comboBoxNumberType->addItem(QString());
         comboBoxNumberType->addItem(QString());
-        comboBoxNumberType->setObjectName("comboBoxNumberType");
+        comboBoxNumberType->setObjectName(QString::fromUtf8("comboBoxNumberType"));
         comboBoxNumberType->setMinimumSize(QSize(120, 0));
 
         horizontalLayout->addWidget(comboBoxNumberType);
 
         btnAddNumber = new QPushButton(groupBoxNumbers);
-        btnAddNumber->setObjectName("btnAddNumber");
+        btnAddNumber->setObjectName(QString::fromUtf8("btnAddNumber"));
         btnAddNumber->setMinimumSize(QSize(80, 0));
         btnAddNumber->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "    background-color: #27ae60;\n"
@@ -182,13 +182,13 @@ public:
         verticalLayout_2->addLayout(horizontalLayout);
 
         lblNumberCount = new QLabel(groupBoxNumbers);
-        lblNumberCount->setObjectName("lblNumberCount");
+        lblNumberCount->setObjectName(QString::fromUtf8("lblNumberCount"));
         lblNumberCount->setStyleSheet(QString::fromUtf8("color: #7f8c8d; font-size: 9pt;"));
 
         verticalLayout_2->addWidget(lblNumberCount);
 
         numberListWidget = new QListWidget(groupBoxNumbers);
-        numberListWidget->setObjectName("numberListWidget");
+        numberListWidget->setObjectName(QString::fromUtf8("numberListWidget"));
         numberListWidget->setMaximumSize(QSize(16777215, 120));
         numberListWidget->setStyleSheet(QString::fromUtf8("QListWidget {\n"
 "    border: 1px solid #bdc3c7;\n"
@@ -205,7 +205,7 @@ public:
         verticalLayout_2->addWidget(numberListWidget);
 
         btnRemoveNumber = new QPushButton(groupBoxNumbers);
-        btnRemoveNumber->setObjectName("btnRemoveNumber");
+        btnRemoveNumber->setObjectName(QString::fromUtf8("btnRemoveNumber"));
         btnRemoveNumber->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "    background-color: #e74c3c;\n"
 "    color: white;\n"
@@ -223,22 +223,22 @@ public:
         verticalLayout->addWidget(groupBoxNumbers);
 
         lblRequired = new QLabel(ContactDialog);
-        lblRequired->setObjectName("lblRequired");
+        lblRequired->setObjectName(QString::fromUtf8("lblRequired"));
 
         verticalLayout->addWidget(lblRequired);
 
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         verticalLayout->addItem(verticalSpacer);
 
         horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setObjectName("horizontalLayout_2");
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_2->addItem(horizontalSpacer);
 
         btnCancel = new QPushButton(ContactDialog);
-        btnCancel->setObjectName("btnCancel");
+        btnCancel->setObjectName(QString::fromUtf8("btnCancel"));
         btnCancel->setMinimumSize(QSize(100, 35));
         btnCancel->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "    background-color: #95a5a6;\n"
@@ -254,7 +254,7 @@ public:
         horizontalLayout_2->addWidget(btnCancel);
 
         btnSave = new QPushButton(ContactDialog);
-        btnSave->setObjectName("btnSave");
+        btnSave->setObjectName(QString::fromUtf8("btnSave"));
         btnSave->setMinimumSize(QSize(100, 35));
         btnSave->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "    background-color: #27ae60;\n"

@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
     
     app.setApplicationName("MATOBEC Contact");
     app.setOrganizationName("leStatois");
-    app.setApplicationVersion("1.0");
+    app.setApplicationVersion("2.0 - PostgreSQL Edition");
     
     MainWindow window;
     window.show();

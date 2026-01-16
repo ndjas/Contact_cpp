@@ -1,106 +1,109 @@
 #include "ContactManager.h"
-#include <QFile>
-#include <QJsonDocument>
-#include <QJsonArray>
-#include <QJsonObject>
-#include <QDir>
 
-ContactManager::ContactManager(const QString& filepath)
-    : filepath(filepath)
+ContactManager::ContactManager()
+    : storage(nullptr),
+    jsonStorage(new JSONStorage()),
+    postgresStorage(new PostgresStorage()),
+    currentMode(StorageMode::JSON)
 {
+    storage = jsonStorage;
     loadContacts();
+}
+
+ContactManager::~ContactManager()
+{
+    if (jsonStorage) delete jsonStorage;
+    if (postgresStorage) delete postgresStorage;
+}
+
+void ContactManager::setStorageMode(StorageMode mode)
+{
+    if (currentMode == mode) {
+        return;
+    }
+
+    currentMode = mode;
+    switchStorage();
+    loadContacts();
+}
+
+void ContactManager::configurePostgres(const QString& host, int port,
+                                       const QString& dbName,
+                                       const QString& user,
+                                       const QString& password)
+{
+    postgresStorage->setConnectionParams(host, port, dbName, user, password);
+
+    if (currentMode == StorageMode::PostgreSQL) {
+        switchStorage();
+        loadContacts();
+    }
+}
+
+void ContactManager::switchStorage()
+{
+    if (storage) {
+        storage->disconnect();
+    }
+
+    storage = (currentMode == StorageMode::JSON) ?
+                  static_cast<IStorage*>(jsonStorage) :
+                  static_cast<IStorage*>(postgresStorage);
+
+    storage->connect();
 }
 
 bool ContactManager::loadContacts()
 {
-    QFile file(filepath);
-    
-    // Créer le fichier s'il n'existe pas
-    if (!file.exists()) {
-        QDir dir;
-        dir.mkpath(QFileInfo(filepath).absolutePath());
-        
-        file.open(QIODevice::WriteOnly);
-        file.write("[]");
-        file.close();
-        return true;
-    }
-    
-    if (!file.open(QIODevice::ReadOnly)) {
+    if (!storage) {
         return false;
     }
-    
-    QByteArray data = file.readAll();
-    file.close();
-    
-    QJsonDocument doc = QJsonDocument::fromJson(data);
-    
-    if (!doc.isArray()) {
-        return false;
-    }
-    
-    contacts.clear();
-    QJsonArray array = doc.array();
-    
-    for (const auto& value : array) {
-        if (value.isObject()) {
-            Contact contact(value.toObject());
-            contacts.append(contact);
-        }
-    }
-    
-    return true;
-}
 
-bool ContactManager::saveContacts()
-{
-    QJsonArray array;
-    
-    for (const auto& contact : contacts) {
-        array.append(contact.toJson());
+    if (!storage->isConnected()) {
+        storage->connect();
     }
-    
-    QJsonDocument doc(array);
-    
-    QFile file(filepath);
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        return false;
-    }
-    
-    file.write(doc.toJson(QJsonDocument::Indented));
-    file.close();
-    
+
+    contacts = storage->loadAll();
     return true;
 }
 
 bool ContactManager::addContact(const Contact& contact)
 {
-    Contact newContact = contact;
-    newContact.setId(getNextId());
-    contacts.append(newContact);
-    return saveContacts();
+    if (!storage || !storage->isConnected()) {
+        return false;
+    }
+
+    bool result = storage->save(contact);
+    if (result) {
+        loadContacts();
+    }
+    return result;
 }
 
 bool ContactManager::updateContact(const Contact& contact)
 {
-    int index = findIndexById(contact.getId());
-    if (index == -1) {
+    if (!storage || !storage->isConnected()) {
         return false;
     }
-    
-    contacts[index] = contact;
-    return saveContacts();
+
+    bool result = storage->update(contact);
+    if (result) {
+        loadContacts();
+    }
+    return result;
 }
 
 bool ContactManager::removeContact(int id)
 {
-    int index = findIndexById(id);
-    if (index == -1) {
+    if (!storage || !storage->isConnected()) {
         return false;
     }
-    
-    contacts.removeAt(index);
-    return saveContacts();
+
+    bool result = storage->remove(id);
+    if (result) {
+        loadContacts();
+    }
+    return result;
 }
 
 QVector<Contact> ContactManager::searchContacts(const QString& query) const
@@ -108,61 +111,65 @@ QVector<Contact> ContactManager::searchContacts(const QString& query) const
     if (query.isEmpty()) {
         return contacts;
     }
-    
+
     QVector<Contact> results;
     QString lowerQuery = query.toLower();
-    
+
     for (const auto& contact : contacts) {
         if (matchContact(contact, lowerQuery)) {
             results.append(contact);
         }
     }
-    
+
     return results;
 }
 
 Contact* ContactManager::getContactById(int id)
 {
-    int index = findIndexById(id);
-    return (index != -1) ? &contacts[index] : nullptr;
+    if (!storage || !storage->isConnected()) {
+        return nullptr;
+    }
+
+    return storage->findById(id);
 }
 
-int ContactManager::getNextId() const
+QString ContactManager::getStorageInfo() const
 {
-    int maxId = 0;
-    for (const auto& contact : contacts) {
-        if (contact.getId() > maxId) {
-            maxId = contact.getId();
-        }
+    if (!storage) {
+        return "No storage configured";
     }
-    return maxId + 1;
+
+    return QString("%1: %2")
+        .arg(storage->getStorageType())
+        .arg(storage->getConnectionInfo());
 }
 
-int ContactManager::findIndexById(int id) const
+QString ContactManager::getLastError() const
 {
-    for (int i = 0; i < contacts.size(); ++i) {
-        if (contacts[i].getId() == id) {
-            return i;
-        }
+    if (currentMode == StorageMode::PostgreSQL) {
+        return postgresStorage->getLastError();
     }
-    return -1;
+    return "";
+}
+
+bool ContactManager::isConnected() const
+{
+    return storage && storage->isConnected();
 }
 
 bool ContactManager::matchContact(const Contact& contact, const QString& query) const
 {
-    // Recherche dans nom, prénom, email
     if (contact.getName().toLower().contains(query) ||
         contact.getSurname().toLower().contains(query) ||
         contact.getEmail().toLower().contains(query)) {
         return true;
     }
-    
-    // Recherche dans les numéros
+
     for (const auto& num : contact.getNumbers()) {
         if (num.value.contains(query)) {
             return true;
         }
     }
-    
+
     return false;
 }

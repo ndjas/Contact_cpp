@@ -27,6 +27,8 @@ private slots:
     void onContactSelectionChanged();
     void onEditContactClicked();
     void onDeleteContactClicked();
+    void onStorageModeChanged();
+    void onConfigurePostgresClicked();
     void refreshContactList();
 
 private:
@@ -38,6 +40,7 @@ private:
     void loadContacts(const QString& searchQuery = "");
     void updateContactDetails(const Contact* contact);
     void clearContactDetails();
+    void updateStorageStatusLabel();
     int getSelectedContactId();
 };
 

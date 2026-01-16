@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'MainWindow.ui'
 **
-** Created by: Qt User Interface Compiler version 6.8.3
+** Created by: Qt User Interface Compiler version 5.15.17
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -18,6 +19,8 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QRadioButton>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QSplitter>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTextEdit>
@@ -32,6 +35,13 @@ public:
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout;
     QLabel *lblTitle;
+    QGroupBox *groupBoxStorage;
+    QHBoxLayout *horizontalLayout_storage;
+    QRadioButton *radioJSON;
+    QRadioButton *radioPostgres;
+    QPushButton *btnConfigPostgres;
+    QLabel *lblStorageStatus;
+    QSpacerItem *horizontalSpacer_storage;
     QHBoxLayout *searchLayout;
     QLineEdit *searchLineEdit;
     QPushButton *btnAdd;
@@ -52,27 +62,70 @@ public:
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
-            MainWindow->setObjectName("MainWindow");
+            MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(900, 600);
         centralwidget = new QWidget(MainWindow);
-        centralwidget->setObjectName("centralwidget");
+        centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         verticalLayout = new QVBoxLayout(centralwidget);
-        verticalLayout->setObjectName("verticalLayout");
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         lblTitle = new QLabel(centralwidget);
-        lblTitle->setObjectName("lblTitle");
+        lblTitle->setObjectName(QString::fromUtf8("lblTitle"));
 
         verticalLayout->addWidget(lblTitle);
 
+        groupBoxStorage = new QGroupBox(centralwidget);
+        groupBoxStorage->setObjectName(QString::fromUtf8("groupBoxStorage"));
+        horizontalLayout_storage = new QHBoxLayout(groupBoxStorage);
+        horizontalLayout_storage->setObjectName(QString::fromUtf8("horizontalLayout_storage"));
+        radioJSON = new QRadioButton(groupBoxStorage);
+        radioJSON->setObjectName(QString::fromUtf8("radioJSON"));
+        radioJSON->setChecked(true);
+
+        horizontalLayout_storage->addWidget(radioJSON);
+
+        radioPostgres = new QRadioButton(groupBoxStorage);
+        radioPostgres->setObjectName(QString::fromUtf8("radioPostgres"));
+
+        horizontalLayout_storage->addWidget(radioPostgres);
+
+        btnConfigPostgres = new QPushButton(groupBoxStorage);
+        btnConfigPostgres->setObjectName(QString::fromUtf8("btnConfigPostgres"));
+        btnConfigPostgres->setMinimumSize(QSize(120, 25));
+        btnConfigPostgres->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+"    background-color: #34495e;\n"
+"    color: white;\n"
+"    border: none;\n"
+"    border-radius: 3px;\n"
+"    font-size: 9pt;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #2c3e50;\n"
+"}"));
+
+        horizontalLayout_storage->addWidget(btnConfigPostgres);
+
+        lblStorageStatus = new QLabel(groupBoxStorage);
+        lblStorageStatus->setObjectName(QString::fromUtf8("lblStorageStatus"));
+
+        horizontalLayout_storage->addWidget(lblStorageStatus);
+
+        horizontalSpacer_storage = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_storage->addItem(horizontalSpacer_storage);
+
+
+        verticalLayout->addWidget(groupBoxStorage);
+
         searchLayout = new QHBoxLayout();
-        searchLayout->setObjectName("searchLayout");
+        searchLayout->setObjectName(QString::fromUtf8("searchLayout"));
         searchLineEdit = new QLineEdit(centralwidget);
-        searchLineEdit->setObjectName("searchLineEdit");
+        searchLineEdit->setObjectName(QString::fromUtf8("searchLineEdit"));
         searchLineEdit->setMinimumSize(QSize(0, 35));
 
         searchLayout->addWidget(searchLineEdit);
 
         btnAdd = new QPushButton(centralwidget);
-        btnAdd->setObjectName("btnAdd");
+        btnAdd->setObjectName(QString::fromUtf8("btnAdd"));
         btnAdd->setMinimumSize(QSize(120, 35));
         btnAdd->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "    background-color: #3498db;\n"
@@ -94,22 +147,22 @@ public:
         verticalLayout->addLayout(searchLayout);
 
         splitter = new QSplitter(centralwidget);
-        splitter->setObjectName("splitter");
+        splitter->setObjectName(QString::fromUtf8("splitter"));
         splitter->setOrientation(Qt::Horizontal);
         leftPanel = new QWidget(splitter);
-        leftPanel->setObjectName("leftPanel");
+        leftPanel->setObjectName(QString::fromUtf8("leftPanel"));
         verticalLayout_2 = new QVBoxLayout(leftPanel);
         verticalLayout_2->setSpacing(5);
-        verticalLayout_2->setObjectName("verticalLayout_2");
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
         lblContactCount = new QLabel(leftPanel);
-        lblContactCount->setObjectName("lblContactCount");
+        lblContactCount->setObjectName(QString::fromUtf8("lblContactCount"));
         lblContactCount->setStyleSheet(QString::fromUtf8("color: #7f8c8d; font-weight: bold;"));
 
         verticalLayout_2->addWidget(lblContactCount);
 
         contactListWidget = new QListWidget(leftPanel);
-        contactListWidget->setObjectName("contactListWidget");
+        contactListWidget->setObjectName(QString::fromUtf8("contactListWidget"));
         contactListWidget->setStyleSheet(QString::fromUtf8("QListWidget {\n"
 "    border: 1px solid #bdc3c7;\n"
 "    border-radius: 5px;\n"
@@ -131,13 +184,13 @@ public:
 
         splitter->addWidget(leftPanel);
         rightPanel = new QWidget(splitter);
-        rightPanel->setObjectName("rightPanel");
+        rightPanel->setObjectName(QString::fromUtf8("rightPanel"));
         verticalLayout_3 = new QVBoxLayout(rightPanel);
         verticalLayout_3->setSpacing(10);
-        verticalLayout_3->setObjectName("verticalLayout_3");
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         verticalLayout_3->setContentsMargins(0, 0, 0, 0);
         contactDetailsTextEdit = new QTextEdit(rightPanel);
-        contactDetailsTextEdit->setObjectName("contactDetailsTextEdit");
+        contactDetailsTextEdit->setObjectName(QString::fromUtf8("contactDetailsTextEdit"));
         contactDetailsTextEdit->setReadOnly(true);
         contactDetailsTextEdit->setStyleSheet(QString::fromUtf8("QTextEdit {\n"
 "    border: 1px solid #bdc3c7;\n"
@@ -149,9 +202,9 @@ public:
         verticalLayout_3->addWidget(contactDetailsTextEdit);
 
         buttonLayout = new QHBoxLayout();
-        buttonLayout->setObjectName("buttonLayout");
+        buttonLayout->setObjectName(QString::fromUtf8("buttonLayout"));
         btnEdit = new QPushButton(rightPanel);
-        btnEdit->setObjectName("btnEdit");
+        btnEdit->setObjectName(QString::fromUtf8("btnEdit"));
         btnEdit->setMinimumSize(QSize(0, 35));
         btnEdit->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "    background-color: #f39c12;\n"
@@ -171,7 +224,7 @@ public:
         buttonLayout->addWidget(btnEdit);
 
         btnDelete = new QPushButton(rightPanel);
-        btnDelete->setObjectName("btnDelete");
+        btnDelete->setObjectName(QString::fromUtf8("btnDelete"));
         btnDelete->setMinimumSize(QSize(0, 35));
         btnDelete->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "    background-color: #e74c3c;\n"
@@ -199,11 +252,11 @@ public:
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
-        menubar->setObjectName("menubar");
+        menubar->setObjectName(QString::fromUtf8("menubar"));
         menubar->setGeometry(QRect(0, 0, 900, 22));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
-        statusbar->setObjectName("statusbar");
+        statusbar->setObjectName(QString::fromUtf8("statusbar"));
         MainWindow->setStatusBar(statusbar);
 
         retranslateUi(MainWindow);
@@ -215,6 +268,11 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MATOBEC Contact", nullptr));
         lblTitle->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:16pt; font-weight:700; color:#2c3e50;\">MATOBEC Contact</span></p><p align=\"center\"><span style=\" font-size:9pt; color:#7f8c8d;\">By @leStatois</span></p></body></html>", nullptr));
+        groupBoxStorage->setTitle(QCoreApplication::translate("MainWindow", "Mode de stockage", nullptr));
+        radioJSON->setText(QCoreApplication::translate("MainWindow", "\360\237\223\204 Fichier JSON", nullptr));
+        radioPostgres->setText(QCoreApplication::translate("MainWindow", "\360\237\220\230 PostgreSQL", nullptr));
+        btnConfigPostgres->setText(QCoreApplication::translate("MainWindow", "\342\232\231\357\270\217 Configuration", nullptr));
+        lblStorageStatus->setText(QCoreApplication::translate("MainWindow", "<span style=\"color: #27ae60;\">\342\234\205 Connect\303\251</span>", nullptr));
         searchLineEdit->setPlaceholderText(QCoreApplication::translate("MainWindow", "Rechercher un contact...", nullptr));
         btnAdd->setText(QCoreApplication::translate("MainWindow", "\342\236\225 Ajouter", nullptr));
         lblContactCount->setText(QCoreApplication::translate("MainWindow", "Total: 0 contact(s)", nullptr));

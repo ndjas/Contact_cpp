@@ -1,58 +1,56 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'ContactDialog.h'
 **
-** Created by: The Qt Meta Object Compiler version 68 (Qt 6.8.3)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.15.17)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../src/views/ContactDialog.h"
-#include <QtCore/qmetatype.h>
-
-#include <QtCore/qtmochelpers.h>
-
 #include <memory>
-
-
-#include <QtCore/qxptype_traits.h>
+#include "../../src/views/ContactDialog.h"
+#include <QtCore/qbytearray.h>
+#include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'ContactDialog.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 68
-#error "This file was generated using the moc from 6.8.3. It"
+#elif Q_MOC_OUTPUT_REVISION != 67
+#error "This file was generated using the moc from 5.15.17. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
 
-#ifndef Q_CONSTINIT
-#define Q_CONSTINIT
-#endif
-
+QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-QT_WARNING_DISABLE_GCC("-Wuseless-cast")
-namespace {
-struct qt_meta_tag_ZN13ContactDialogE_t {};
-} // unnamed namespace
+struct qt_meta_stringdata_ContactDialog_t {
+    QByteArrayData data[7];
+    char stringdata0[99];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_ContactDialog_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_ContactDialog_t qt_meta_stringdata_ContactDialog = {
+    {
+QT_MOC_LITERAL(0, 0, 13), // "ContactDialog"
+QT_MOC_LITERAL(1, 14, 18), // "onAddNumberClicked"
+QT_MOC_LITERAL(2, 33, 0), // ""
+QT_MOC_LITERAL(3, 34, 21), // "onRemoveNumberClicked"
+QT_MOC_LITERAL(4, 56, 13), // "onSaveClicked"
+QT_MOC_LITERAL(5, 70, 15), // "onCancelClicked"
+QT_MOC_LITERAL(6, 86, 12) // "validateForm"
 
+    },
+    "ContactDialog\0onAddNumberClicked\0\0"
+    "onRemoveNumberClicked\0onSaveClicked\0"
+    "onCancelClicked\0validateForm"
+};
+#undef QT_MOC_LITERAL
 
-#ifdef QT_MOC_HAS_STRINGDATA
-static constexpr auto qt_meta_stringdata_ZN13ContactDialogE = QtMocHelpers::stringData(
-    "ContactDialog",
-    "onAddNumberClicked",
-    "",
-    "onRemoveNumberClicked",
-    "onSaveClicked",
-    "onCancelClicked",
-    "validateForm"
-);
-#else  // !QT_MOC_HAS_STRINGDATA
-#error "qtmochelpers.h not found or too old."
-#endif // !QT_MOC_HAS_STRINGDATA
-
-Q_CONSTINIT static const uint qt_meta_data_ZN13ContactDialogE[] = {
+static const uint qt_meta_data_ContactDialog[] = {
 
  // content:
-      12,       // revision
+       8,       // revision
        0,       // classname
        0,    0, // classinfo
        5,   14, // methods
@@ -62,12 +60,12 @@ Q_CONSTINIT static const uint qt_meta_data_ZN13ContactDialogE[] = {
        0,       // flags
        0,       // signalCount
 
- // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   44,    2, 0x08,    1 /* Private */,
-       3,    0,   45,    2, 0x08,    2 /* Private */,
-       4,    0,   46,    2, 0x08,    3 /* Private */,
-       5,    0,   47,    2, 0x08,    4 /* Private */,
-       6,    0,   48,    2, 0x08,    5 /* Private */,
+ // slots: name, argc, parameters, tag, flags
+       1,    0,   39,    2, 0x08 /* Private */,
+       3,    0,   40,    2, 0x08 /* Private */,
+       4,    0,   41,    2, 0x08 /* Private */,
+       5,    0,   42,    2, 0x08 /* Private */,
+       6,    0,   43,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -79,33 +77,11 @@ Q_CONSTINIT static const uint qt_meta_data_ZN13ContactDialogE[] = {
        0        // eod
 };
 
-Q_CONSTINIT const QMetaObject ContactDialog::staticMetaObject = { {
-    QMetaObject::SuperData::link<QDialog::staticMetaObject>(),
-    qt_meta_stringdata_ZN13ContactDialogE.offsetsAndSizes,
-    qt_meta_data_ZN13ContactDialogE,
-    qt_static_metacall,
-    nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_tag_ZN13ContactDialogE_t,
-        // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<ContactDialog, std::true_type>,
-        // method 'onAddNumberClicked'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'onRemoveNumberClicked'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'onSaveClicked'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'onCancelClicked'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'validateForm'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>
-    >,
-    nullptr
-} };
-
 void ContactDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-    auto *_t = static_cast<ContactDialog *>(_o);
     if (_c == QMetaObject::InvokeMetaMethod) {
+        auto *_t = static_cast<ContactDialog *>(_o);
+        (void)_t;
         switch (_id) {
         case 0: _t->onAddNumberClicked(); break;
         case 1: _t->onRemoveNumberClicked(); break;
@@ -118,6 +94,16 @@ void ContactDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
     (void)_a;
 }
 
+QT_INIT_METAOBJECT const QMetaObject ContactDialog::staticMetaObject = { {
+    QMetaObject::SuperData::link<QDialog::staticMetaObject>(),
+    qt_meta_stringdata_ContactDialog.data,
+    qt_meta_data_ContactDialog,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
+
+
 const QMetaObject *ContactDialog::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
@@ -126,7 +112,7 @@ const QMetaObject *ContactDialog::metaObject() const
 void *ContactDialog::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_ZN13ContactDialogE.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_ContactDialog.stringdata0))
         return static_cast<void*>(this);
     return QDialog::qt_metacast(_clname);
 }
@@ -140,12 +126,12 @@ int ContactDialog::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
         _id -= 5;
-    }
-    if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         if (_id < 5)
-            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
+            *reinterpret_cast<int*>(_a[0]) = -1;
         _id -= 5;
     }
     return _id;
 }
 QT_WARNING_POP
+QT_END_MOC_NAMESPACE
