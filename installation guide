@@ -1,2 +1,7 @@
-.vscode/
-qt_projet/
+delete build in PhonebookQt
+create a new document build
+execute the command : qmake-qt5 PhonebookQt.pro
+after execute : make
+in final execute : ./build/PhonebookQt
+
+
